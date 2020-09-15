@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body_block %}
+<div class="container my-5">
+    <div class="card">
+        <div class="row">
+            <aside class="col-sm-5 border-right">
+                <article class="gallery-wrap">
+                    <div class="img-big-wrap">
+                        <div>
+                            <a href=""><img src="/media/{{product.mainimage}}" style="width: 450px; height: 500px;"></a>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <h3>Number of Pages: {{product.page_no}}</h3>
+                        <h3>First Published: {{product.date_published}}</h3>
+                    </div>
+                </article>
+            </aside>
+            <aside class="col-sm-7">
+                <article class="card-body p-5">
+                    <h3 class="title mp-3">{{product.name}}</h3>
+
+                    {% for author in product.authors.all %}
+                    <a href="{% url 'App_Shop:author' pk=author.pk %}">
+                        <h6>{{author.name}}</h6>
+                    </a>
+                    {% endfor %}
+
+                    <span>Published by <a href="{% url 'App_Shop:publisher' pk=product.publisher.pk %}">
+                            <span>{{product.publisher.name}}</span>
+                        </a></span>
+
+                    <br>
+
+                    <span>Category : <a href="{% url 'App_Shop:category' pk=product.category.pk %}">
+                            <span>{{product.category.title}}</span>
+                        </a></span>
+
+                    <p class="price-detail-wrap">
+                        <span class="price h3 text-warning">
+                            <span class="currency">BDT &#2547;<span class="num">{{product.price}}</span></span>
+                        </span>
+                    </p>
+                    <dl class="item-property">
+                        <dt>Description</dt>
+                        <dd>
+                            <p>{{product.description|linebreaks}}</p>
+                        </dd>
+                    </dl>
+                    <a href="{% url 'App_Order:add' pk=product.pk %}"
+                        class="btn btn-lg btn-outline-primary text-uppercase"><i class="fas fa-shopping-cart"></i> Add
+                        to Cart</a>
+                </article>
+            </aside>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col">
+                <hr>
+                <h5>Comments </h5>
+
+                {% for comment in product.product_comment.all %}
+
+                {% if comment.user.profile.profile_pic %}
+                <img src="/media/{{comment.user.profile.profile_pic}}" width="40px" height="40px"
+                    class="rounded-circle">
+                {% else %}
+                <img src="/media/avatar-male.jpg" width="40px" height="40px" class="rounded-circle">
+                {% endif %}
+                <span>
+                    {% if comment.user.profile.full_name == '' %}
+                    <b>{{comment.user}}</b>
+                    {% else %}
+                    <b>{{comment.user.profile.full_name}}</b>
+                    {% endif %}
+                    - {{comment.comment}}<br>
+                    <h6>{{comment.comment_date}}</h6>
+                </span>
+
+                <!-- {% if comment.user == user %}
+                <a href="{% url 'App_Shop:update_comment' pk=product.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                {% endif %} -->
+
+                <hr>
+                {% endfor %}
+            </div>
+            <div class="col">
+                <a href="{% url 'App_Shop:comment' pk=product.pk %}" class="btn btn-primary btn-sm">Comment</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body_block %}

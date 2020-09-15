@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{%block title_block %} Category {%endblock%}
+
+{% block body_block %}
+
+<h4>{{object.title}} books list</h4>
+<br>
+<div class="row">
+
+    {% for book in object.category.all %}
+    <div class="col-md-6 col-sm-12 col-lg-3">
+        <figure class="card card-product">
+            <div class="img-wrap">
+                <img src="/media/{{book.mainimage}}" style="width:200px; height: 300px;">
+            </div>
+            <figcaption class=" info-wrap">
+                <h5 class="title"><a href="{% url 'App_Shop:product_detail' pk=book.pk %}">{{book.name}}</a>
+                </h5>
+
+                <span>written by, </span>
+                {% for author in book.authors.all %}
+                <h6 class="title" style="font-size: 15px;"><a
+                        href="{% url 'App_Shop:author' pk=author.pk %}">{{author.name}} </a>
+                </h6>
+                {% endfor %}
+                </h6>
+                <div class="action-wrap">
+                    <div class="price-wrap h5">
+                        <span class="price-new">&#2547; {{book.price|floatformat:2}}</span>
+                        <span class="price-old"><strike>&#2547; {{book.old_price|floatformat:2}}</strike></span>
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock body_block %}

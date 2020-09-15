@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block body_block %}
+
+<h2>Write your comment here</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{comment_form|crispy}}
+    <button type="submit" class="btn btn-success btn-sm">Comment</button>
+</form>
+{% endblock body_block %}

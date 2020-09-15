@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{%block title_block %} Author {%endblock%}
+
+{% block body_block %}
+
+<div class="container">
+    <h2 class="my-5">Writer of the month</h2>
+
+    {% for author in object_list %}
+    {% if author.isMVP %}
+    <div class="col-md-6 col-sm-12 col-lg-3">
+        <figure class="card card-product">
+            <div class="img-wrap">
+                <img src="/media/{{author.profile_pic}}" style="width:200px; height: 300px;">
+            </div>
+            <figcaption class=" info-wrap">
+                <h5 class="title"><a href="{% url 'App_Shop:author' pk=author.pk %}">{{author.name}}</a>
+                </h5>
+                <span>Total Books: {{author.authors.count}} </span>
+            </figcaption>
+        </figure>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<h2 class="my-5">Featured Writers</h2>
+<div class="row">
+
+    {% for author in object_list %}
+    <div class="col-md-6 col-sm-12 col-lg-3">
+        <figure class="card card-product">
+            <div class="img-wrap">
+                <img src="/media/{{author.profile_pic}}" style="width:200px; height: 300px;">
+            </div>
+            <figcaption class=" info-wrap">
+                <h5 class="title"><a href="{% url 'App_Shop:author' pk=author.pk %}">{{author.name}}</a>
+                </h5>
+                <span>Total Books: {{author.authors.count}} </span>
+            </figcaption>
+        </figure>
+    </div>
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

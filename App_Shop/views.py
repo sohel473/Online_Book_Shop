@@ -24,6 +24,14 @@ class Home(ListView):
     model = Product
     template_name = 'App_Shop/home.html'
 
+    def get_queryset(self):
+        query = self.request.GET.get('search', '')
+        if query:
+            object_list = self.model.objects.filter(name__icontains=query)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
+
 
 class ProductDetail(DetailView):
     model = Product

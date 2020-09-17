@@ -4,7 +4,7 @@
 
 {% block body_block %}
 
-<h2>Write your comment here</h2>
+<h2>Write your comment for "{{product.name}}"</h2>
 <form method="POST">
     {% csrf_token %}
     {{comment_form|crispy}}

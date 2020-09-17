@@ -48,6 +48,7 @@ def create_comment(request, pk):
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
+            print(request.user)
             comment.user = request.user
             comment.product = product
             comment.save()
@@ -61,18 +62,18 @@ def create_comment(request, pk):
 
 
 @login_required
-def edit_comment(request, pk):
-    current_user = Profile.objects.get(user=request.user)
-    product = get_object_or_404(Product, pk=pk)
-    print(current_user)
-    form = CommentForm(instance=product)
+def edit_comment(request, pk1, pk2):
+    product = get_object_or_404(Product, pk=pk1)
+    comment = get_object_or_404(Comment, pk=pk2)
+    print(comment)
+    form = CommentForm(instance=comment)
     if request.method == "POST":
-        form = CommentForm(data=request.POST, instance=product)
+        form = CommentForm(data=request.POST, instance=comment)
         if form.is_valid():
             comment = form.save()
-            form = CommentForm(instance=product)
-            return HttpResponseRedirect(reverse_lazy('App_Shop:product_detail', kwargs={'pk': pk}))
-    return render(request, 'App_Shop/edit_comment.html', context={'form': form})
+            form = CommentForm(instance=comment)
+            return HttpResponseRedirect(reverse_lazy('App_Shop:product_detail', kwargs={'pk': pk1}))
+    return render(request, 'App_Shop/edit_comment.html', context={'form': form, 'product': product})
 
 
 class WritersList(ListView):

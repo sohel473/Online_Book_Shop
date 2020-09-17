@@ -59,7 +59,7 @@
         <br>
         <br>
         <div class="row">
-            <div class="col">
+            <div class="col-11">
                 <hr>
                 <h5>Comments </h5>
 
@@ -78,17 +78,19 @@
                     <b>{{comment.user.profile.full_name}}</b>
                     {% endif %}
                     - {{comment.comment}}<br>
-                    <h6>{{comment.comment_date}}</h6>
+                    <h6>Base: {{comment.comment_date}}</h6>
+                    <h6>updated: {{comment.comment_update}}</h6>
                 </span>
 
-                <!-- {% if comment.user == user %}
-                <a href="{% url 'App_Shop:update_comment' pk=product.pk %}" class="btn btn-warning btn-sm">Edit</a>
-                {% endif %} -->
+                {% if comment.user == user %}
+                <a href="{% url 'App_Shop:update_comment' pk1=product.pk pk2=comment.pk %}"
+                    class="btn btn-warning btn-sm">Edit</a>
+                {% endif %}
 
                 <hr>
                 {% endfor %}
             </div>
-            <div class="col">
+            <div class="col-1">
                 <a href="{% url 'App_Shop:comment' pk=product.pk %}" class="btn btn-primary btn-sm">Comment</a>
             </div>
         </div>

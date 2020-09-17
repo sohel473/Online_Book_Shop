@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block body_block %}
-<h2>Update your comment here</h2>
+<h2>Update your comment for "{{product.name}}"</h2>
 <form method="POST">
     {% csrf_token %}
     {{form|crispy}}

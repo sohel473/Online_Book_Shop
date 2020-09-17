@@ -78,12 +78,12 @@ def edit_comment(request, pk1, pk2):
 
 class WritersList(ListView):
     model = Author
-    template_name = 'App_Shop/writers.html'
+    template_name = 'App_Shop/Writers.html'
 
 
 class AuthorDetail(DetailView):
     model = Author
-    template_name = 'App_Shop/author.html'
+    template_name = 'App_Shop/Author.html'
 
 
 class CategoryDetail(DetailView):

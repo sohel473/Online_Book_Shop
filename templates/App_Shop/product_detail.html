@@ -63,6 +63,8 @@
                 <hr>
                 <h5>Comments </h5>
 
+
+                {% if product.product_comment.count >= 1 %}
                 {% for comment in product.product_comment.all %}
 
                 {% if comment.user.profile.profile_pic %}
@@ -89,6 +91,15 @@
 
                 <hr>
                 {% endfor %}
+                {% else %}
+                <div class="container">
+                    <h6>No one commented yet. Be first to comment!</h6>
+                </div>
+                <br>
+                <br>
+                {% endif %}
+
+
             </div>
             <div class="col-1">
                 <a href="{% url 'App_Shop:comment' pk=product.pk %}" class="btn btn-primary btn-sm">Comment</a>
